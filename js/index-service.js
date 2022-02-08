@@ -1,5 +1,10 @@
 const STORAGE_KEY = 'bookDB'
 var gBooks = _creatBooks()
+var gPageIdx = 0
+const PAGE_SIZE = 5
+var gPageCount =0
+
+
 
 
 function getGbooks() {
@@ -59,7 +64,35 @@ function updateBook(id, newPrice) {
 }
 
 
+function setNextPage() {
+    gPageIdx++
+    if (gPageIdx * PAGE_SIZE >= gBooks.length) {
+        gPageIdx = 0
+    }
+}
 
+function getBooksForDisplay() {
+    const startIdx = gPageIdx * PAGE_SIZE;
+    gPageCount = getPageCount();
+    return gBooks.slice(startIdx, startIdx + PAGE_SIZE);
+}
+
+function getPageCount() {
+    var pageCount = Math.ceil(gBooks.length / PAGE_SIZE)
+    return pageCount;
+}
+
+function setPage(target) {
+    if (target === 'prev') {
+        if (gPageIdx === 0) return;
+        gPageIdx--;
+    } else if (target === 'next') {
+        if (gPageIdx === gPageCount - 1) return;
+        gPageIdx++;
+    } else {
+        gPageIdx = target;
+    }
+}
 
 
 function getRandomIntInclusive(min, max) {

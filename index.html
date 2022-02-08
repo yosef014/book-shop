@@ -46,6 +46,11 @@
     <div class="container center">
         <button data-trans="create-new-book" onclick="onAddNewBook()" class="btn btn-primary btn-sm">➕create new
             book➕</button>
+            <div class="pages m-2" style="direction: ltr">
+                <button class="prev-page btn btn-outline-primary" onclick="onSetPage( 'prev') ">&#8592;</button>
+                <div class="page-numbers d-inline-block m-2"></div>
+                <button class="next-page btn btn-outline-primary" onclick="onSetPage( 'next') ">&#8594;</button>
+            </div>
     </div>
     <!-- moda!! -->
     <div class="modal2" tabindex="-1">
@@ -64,6 +69,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                         onclick="onCloseModal()">Close</button>
+
                 </div>
             </div>
         </div>

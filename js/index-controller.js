@@ -8,7 +8,7 @@ function init() {
 
 
 function renderTableBooks() {
-    const books = getGbooks()
+    const books = getBooksForDisplay();
     const strHtmls = books.map(book =>
         `<tr>
         <th>${book.id}</th>
@@ -25,6 +25,7 @@ function renderTableBooks() {
     var elTbody = document.querySelector('.table-books-body')
     elTbody.innerHTML = strHtmls.join('')
     setLang(gCurrLang)
+    renderPageBtns();
 }
 
 function onReadClicked(id) {
@@ -79,4 +80,31 @@ function onSetLang(langVal) {
 function onCloseModal() {
     var elmodal = document.querySelector('.modal2')
     elmodal.classList.toggle("open");
+}
+function onNextPage() {
+    setNextPage()
+}
+function setPageBtnsHTMLs() {
+    var strHTMLs = ''
+    for (var i = 0; i < gPageCount; i++) {
+        var buttonSize = (i === gPageIdx) ? 'btn-lg' : 'btn-sm'
+        strHTMLs += `<button class="page-${i} ${buttonSize} btn-primary m-2" onclick="onSetPage(${i})">${(i + 1)}</button>`
+    }
+    return strHTMLs
+}
+
+function renderPageBtns() {
+    var strHTMLs = setPageBtnsHTMLs();
+    var elNextBtn = document.querySelector('.next-page');
+    var elPrevBtn = document.querySelector('.prev-page');
+
+    document.querySelector('.page-numbers').innerHTML = strHTMLs
+    var elCurrPageBtn = document.querySelector(`.page-${gPageIdx}`)
+        // elCurrPageBtn.classList.add('btn-lg')
+}
+
+function onSetPage(targetPage) {
+    setPage(targetPage);
+
+    renderTableBooks();
 }
